@@ -1,0 +1,32 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJYmU1Qm1BRWtVRmd3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TkRFd01UUXhOak13TkRaYUZ3MHpOREV3TVRJeE5qTTFORFphTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUUN1bmUvVGVZbmNmc0RlVUNEY0QvT2tvcTk0OHRHWTd6YjNiYmZRMS9HTHBjelhUY0EyYmpDRGpRbTcKWUw2K2ZmZkZCbkp0bk9tUDc2bkRQbDJWZHRPY3I3c1VUR2RoWTZsV1R6NXladlRqQUxzV2NiWE1CNUd0WGNTcwpvTjZ2aklSTm5tNUlyRXozcndwNzRXL25NNS9EZnBSOHpOcEdXSUpBUWswR29zUXV0dWU3K21FWDB4S1N2NVJzCm1sVDRYd0ZqTlJJbTF5bWFJV0ZZTnd3eXB2cUlvdUtjbE9JZzBPQVkvdTNwTWR3MDUyQnVRTkFNZDBOanZpUjIKdU1hU29zVUE0Q3QxcldQcXNiTjJZbkpIaWhqK29XTDJjM1ZmTkJkSElnLzErdDRrdTkveWovQmIvY0E5OTdrMwpydkZQMGtyNVZoQVFaaXFiblJwcTZPTEpQTDVaQWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJSSHhVZ0c4MERxZ0VRdkN2SUVXKzdoUUhrVmNqQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQnQrZ3FwKzJmOApXOFlCclBQMnFqQlF0SkZ5Z1NWL1J2Mk9pWitDSkxLRlE2c0dJR3VjNEdFS3kybEhJQ1FFUHFzbTVjM0xZUVhBCnY2VVhLK1BqVzNCQ3F2WUdkdGc5MWtCWXRjSjFadDFDNEJiYUNVZFZ5U1N5QlN3ZXRVZEVNa0xQZzdBZGdub1UKOG1jR2hRVE5CLzhldzdhUW9tRUZ5TFhQb25RR29RTmYyYVpNWmhXN2ZMWTlPLzFsS0VBUGJNbG44UXZUV2k2UQpTYXhkaUN1dGREVVBxSzZBUVd2Y2xmZGlWTlRZUjVkcmFJV1N1UkN1aVNrdzlsRTAvSE9rbklHL3BWOUJEVzBXCnhiMkFLVm1NWkJXQkV5aEd4OHZDVG1NREVYSW00c0RFRXJ5VWVPMjhTRWdJTjRWdnplSFZLZytrbE9ybDBjTnEKUTRQd0pEcjJKOE1pCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    server: https://BAA267435BEA7B115C53D52F6198F535.gr7.us-east-1.eks.amazonaws.com
+  name: arn:aws:eks:us-east-1:757641753030:cluster/development-cluster
+contexts:
+- context:
+    cluster: arn:aws:eks:us-east-1:757641753030:cluster/development-cluster
+    user: arn:aws:eks:us-east-1:757641753030:cluster/development-cluster
+  name: arn:aws:eks:us-east-1:757641753030:cluster/development-cluster
+current-context: arn:aws:eks:us-east-1:757641753030:cluster/development-cluster
+kind: Config
+preferences: {}
+users:
+- name: arn:aws:eks:us-east-1:757641753030:cluster/development-cluster
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - --region
+      - us-east-1
+      - eks
+      - get-token
+      - --cluster-name
+      - development-cluster
+      - --output
+      - json
+      command: aws
+      env:
+      - name: AWS_PROFILE
+        value: heinux-teaching
