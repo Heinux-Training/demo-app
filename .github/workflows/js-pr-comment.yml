@@ -14,7 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Post GIF
-        uses: Heinux-Training/js-pr-comment-action@latest
+        uses: Heinux-Training/js-pr-comment-action@1.0.0-alpha
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           giphy-api-key: ${{ secrets.GIPHY_KEY }}
