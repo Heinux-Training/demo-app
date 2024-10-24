@@ -9,7 +9,7 @@ on:
 
 jobs:
   post-gif:
-    runs-on: ubuntu-latest
+    runs-on: ["demo-app", "self-hosted"]
     permissions:
       issues: write
       pull-requests: write
