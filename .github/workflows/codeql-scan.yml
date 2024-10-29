@@ -12,16 +12,17 @@
 name: "CodeQL Advanced"
 
 on:
-  push:
-    branches: [ "main", "*-release" ]
-    paths-ignore:
-      - '**/*.md'
-      - 'kubernetes/*'
-      - '.github/workflows/**'
-      - 'Dockerfile'
+  # push:
+  #   branches: [ "main", "*-release" ]
+  #   paths-ignore:
+  #     - '**/*.md'
+  #     - 'kubernetes/*'
+  #     - '.github/workflows/**'
+  #     - 'Dockerfile'
     
   pull_request:
     branches: [ "main", "*-release" ]
+    types: [opened, synchronize, reopened]
     paths-ignore:
       - '**/*.md'
       - 'kubernetes/*'
