@@ -2,15 +2,15 @@ name: "Demo App Workflow"
 
 on:
   workflow_dispatch: null
-  # push:
-  #   branches:
-  #     - "main"
-  #     - "*-release"
-  pull_request:
-    types: [opened, synchronize, reopened]
-    branches: 
+  push:
+    branches:
       - "main"
       - "*-release"
+  # pull_request:
+  #   types: [opened, synchronize, reopened]
+  #   branches: 
+  #     - "main"
+  #     - "*-release"
 
 jobs:
   unit-testing:
@@ -93,7 +93,7 @@ jobs:
           context: .
           push: true
           tags: >-
-            ghcr.io/${{ env.REPO_NAME }}/demo_app:${{ github.sha}}
+            ghcr.io/${{ env.REPO_NAME }}/demo_app:${{ github.sha }}
   dev-deploy:
     if: github.ref == 'refs/heads/develop-release'
     needs: docker
@@ -105,11 +105,8 @@ jobs:
       - uses: azure/setup-kubectl@v3
         with:
           version: v1.26.0
-      # - uses: azure/k8s-set-context@v3
-      #   with:
-      #     method: kubeconfig
-      #     kubeconfig: "${{ secrets.KUBECONFIG }}"
       - run: kubectl version --short -o yaml
+      
       # Below codes are added to complete the task
       - uses: cschleiden/replace-tokens@v1
         with:
@@ -123,3 +120,14 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/solar-system:${{ github.sha}}
           DOMAINNAME: "${{ vars.DOMAINNAME }}"
       - run: cat kubernetes/development/*.yaml
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          role-to-assume: arn:aws:iam::757641753030:role/demo-app-development-role
+          aws-region: us-east-1
+      - name: Update kubeconfig for EKS cluster
+        run: |
+          aws eks update-kubeconfig --name demo-app --region us-east-1
+      - name: Deploy Application into EKS cluster
+        run: kubectl apply -f "kubernetes/development/*.yaml"
+
