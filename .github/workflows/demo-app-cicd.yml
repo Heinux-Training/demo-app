@@ -97,7 +97,7 @@ jobs:
           context: .
           push: true
           tags: >-
-            ghcr.io/${{ env.REPO_NAME }}/demo_app:${{ github.sha }}
+            ghcr.io/${{ env.REPO_NAME }}/demo_app:${{ github.ref }}
   dev-deploy:
     if: github.ref == 'refs/heads/develop-release'
     needs: docker
