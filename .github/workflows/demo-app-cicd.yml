@@ -97,7 +97,7 @@ jobs:
           context: .
           push: true
           tags: >-
-            ghcr.io/${{ env.REPO_NAME }}/demo_app:${{ github.ref }}
+            ghcr.io/${{ env.REPO_NAME }}/demo_app:${{ github.ref_name	}}
   dev-deploy:
     if: github.ref == 'refs/heads/develop-release'
     needs: docker
@@ -110,6 +110,9 @@ jobs:
         with:
           version: v1.26.0
       - run: kubectl version --short -o yaml
+      - name: Convert GitHub Docker Repository into lowercase
+        run: |
+          echo "REPO_NAME=`echo ${{github.repository}} | tr '[:upper:]' '[:lower:]'`" >> ${GITHUB_ENV}
       
       # Below codes are added to complete the task
       - uses: cschleiden/replace-tokens@v1
@@ -121,7 +124,7 @@ jobs:
           NAMESPACE: "${{ vars.NAMESPACE }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           IMAGE: >-
-            ghcr.io/${{ github.repository_owner }}/solar-system:${{ github.sha}}
+            ghcr.io/${{ env.REPO_NAME }}/:${{ github.ref_name	 }}
           DOMAINNAME: "${{ vars.DOMAINNAME }}"
       - run: cat kubernetes/development/*.yaml
       - name: Configure AWS credentials
