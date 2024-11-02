@@ -117,7 +117,8 @@ jobs:
       - uses: azure/setup-kubectl@v4.0.0
         with:
           version: v1.31.0
-      - run: kubectl version --short -o yaml
+      - name: Check Kubectl version
+        run: kubectl version
       - name: Convert GitHub Docker Repository into lowercase
         run: |
           echo "REPO_NAME=`echo ${{github.repository}} | tr '[:upper:]' '[:lower:]'`" >> ${GITHUB_ENV}
