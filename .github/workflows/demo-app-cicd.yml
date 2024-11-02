@@ -101,7 +101,7 @@ jobs:
   dev-deploy:
     if: github.ref == 'refs/heads/develop-release'
     needs: docker
-    runs-on: ["self-hosted", "heinux", "demo-app", "development"]
+    runs-on: ["ubuntu"]
     environment:
       name: development
     steps:
